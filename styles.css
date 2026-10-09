@@ -63,11 +63,15 @@ body {
     align-items: center;
 }
 
-.logo {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--text-white);
-    text-decoration: none;
+.logo-link {
+    display: inline-block;
+    height: 40px;
+}
+
+.logo-img {
+    height: 100%;
+    width: auto;
+    display: block;
 }
 
 .nav-menu a {
