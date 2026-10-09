@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinestic. | Soluciones de TI, Ciberseguridad e Infraestructura</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Fonts: Space Mono & Poppins -->
+    <!-- Google Fonts: Jost -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <!-- FontAwesome para íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -19,136 +19,152 @@
         <div class="container nav-container">
             <a href="#" class="logo">Pinestic<span class="dot">.</span></a>
             <nav class="nav-menu">
-                <a href="#inicio">Inicio</a>
+                <a href="#inicio">Home</a>
                 <a href="#servicios">Servicios</a>
-                <a href="#nosotros">Sobre Nosotros</a>
-                <a href="#contacto">Contacto</a>
+                <a href="#nosotros">Sobre Mí</a>
+                <a href="#contacto" class="btn-nav">Contacto</a>
             </nav>
+            <div class="header-socials">
+                <a href="https://www.facebook.com/profile.php?id=61591644321482&locale=es_LA" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/pines.tic/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@pines.tic" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.linkedin.com/in/breiner-pinilla-padilla-23a3751aa" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section con la Foto estilo Gilb -->
     <section id="inicio" class="hero">
-        <div class="container hero-content">
-            <h1 class="hero-title">Hola! Somos <span class="highlight">Pinestic<span class="dot">.</span></span></h1>
-            <p class="hero-subtitle">Infraestructura Ágil, Redes Seguras, Ciberseguridad y Monitoreo Avanzado para tu Negocio.</p>
-            <div class="hero-buttons">
-                <a href="#contacto" class="btn-space">Contáctanos</a>
-                <a href="#servicios" class="btn-space-outline">Ver Servicios</a>
+        <div class="hero-bg-circle"></div>
+        <div class="container hero-container">
+            <div class="hero-text">
+                <span class="hero-greeting">Hola, soy Breiner Pinilla</span>
+                <h1 class="hero-title">Especialista en Infraestructura, Ciberseguridad & Redes</h1>
+                <p class="hero-subtitle">Infraestructura Ágil, Redes Seguras, Ciberseguridad y Monitoreo Avanzado para tu Negocio.</p>
+                <div class="hero-buttons">
+                    <a href="#contacto" class="btn-gilb">Contáctame</a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <img src="perfil.jpg" alt="Breiner Pinilla - Pinestic" class="hero-profile-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'">
             </div>
         </div>
     </section>
 
-    <!-- Servicios Section -->
-    <section id="servicios" class="services">
+    <!-- Sobre Mí & Habilidades (Fondo Oscuro Gilb) -->
+    <section id="nosotros" class="about-dark">
         <div class="container">
-            <div class="section-header">
-                <h2>Servicios</h2>
-                <p class="section-sub">Especialización técnica de alto nivel para infraestructuras tecnológicas.</p>
-                <div class="wave-line"></div>
-            </div>
-
-            <div class="services-grid">
-                <!-- Servicio 1 -->
-                <div class="service-card">
-                    <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3>Ciberseguridad & SIEM</h3>
-                    <p>Implementación de WAF, seguridad perimetral, monitoreo de logs, detección de amenazas e intrusiones con <strong>Wazuh</strong> y políticas avanzadas.</p>
-                </div>
-
-                <!-- Servicio 2 -->
-                <div class="service-card">
-                    <div class="icon-box"><i class="fa-solid fa-server"></i></div>
-                    <h3>Virtualización & Hardening</h3>
-                    <p>Despliegue y administración de plataformas con <strong>Nutanix, VMware vSphere y Proxmox</strong>. Hardening y endurecimiento de servidores Linux y Windows.</p>
-                </div>
-
-                <!-- Servicio 3 -->
-                <div class="service-card">
-                    <div class="icon-box"><i class="fa-solid fa-database"></i></div>
-                    <h3>Backup & DRP</h3>
-                    <p>Protección de datos empresariales y estrategias de continuidad de negocio mediante copias de seguridad avanzadas con <strong>Veeam y Commvault</strong>.</p>
-                </div>
-
-                <!-- Servicio 4 -->
-                <div class="service-card">
-                    <div class="icon-box"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3>Monitoreo Avanzado</h3>
-                    <p>Supervisión en tiempo real de métricas de red, servidores y servicios críticos con tableros ejecutivos personalizados en <strong>Zabbix y Grafana</strong>.</p>
-                </div>
-
-                <!-- Servicio 5 -->
-                <div class="service-card">
-                    <div class="icon-box"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3>Rediseño de Redes</h3>
-                    <p>Reorganización de topologías, segmentación VLAN, optimización del tráfico, direccionamiento y dimensionamiento de infraestructura de comunicaciones.</p>
-                </div>
-
-                <!-- Servicio 6 -->
-                <div class="service-card">
-                    <div class="icon-box"><i class="fa-solid fa-clipboard-check"></i></div>
-                    <h3>Auditoría & Servicios Perimetrales</h3>
-                    <p>Diagnóstico preventivo de infraestructura, revisión de reglas en firewalls, enlaces VPN empresariales y remediación de vulnerabilidades.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sobre Nosotros Section -->
-    <section id="nosotros" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>Sobre Nosotros</h2>
-                <p class="section-sub">Especialistas en soluciones de infraestructura y ciberseguridad.</p>
-                <div class="wave-line"></div>
-            </div>
-
             <div class="about-grid">
-                <div class="about-image-wrapper">
-                    <div class="dots-bg"></div>
-                    <!-- Si subes tu foto a GitHub con el nombre perfil.jpg se mostrará aquí -->
-                    <img src="perfil.jpg" alt="Foto de perfil Pinestic" class="about-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'">
+                <div class="about-col">
+                    <span class="sub-title-coral">SOBRE MÍ</span>
+                    <h2>Soluciones integrales para la continuidad y blindaje de tu TI.</h2>
+                    <p>En <strong>Pinestic</strong> nos especializamos en la reestructuración de arquitecturas de red, el endurecimiento (hardening) de servidores y la virtualización en entornos de misión crítica.</p>
                 </div>
-                <div class="about-text">
-                    <span class="about-label">Bio</span>
-                    <p>En <strong>Pinestic</strong> brindamos soluciones integrales de infraestructura, ciberseguridad y gestión de redes orientadas a garantizar la continuidad, visibilidad y blindaje de los entornos tecnológicos.</p>
-                    <p>Nos especializamos en la reestructuración de arquitecturas de red, el endurecimiento (hardening) de servidores y la virtualización en entornos como <strong>Nutanix, vSphere y Proxmox</strong>.</p>
-                    <p>Diseñamos planes sólidos de continuidad de negocio e implementación de copias de seguridad con herramientas líderes como <strong>Veeam y Commvault</strong>, integrando el monitoreo continuo y la detección de amenazas en tiempo real con <strong>Zabbix, Grafana y Wazuh</strong>.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacto Section -->
-    <section id="contacto" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Contacto</h2>
-                <p class="section-sub">Disponible para proyectos y consultorías. Ponte en contacto.</p>
-                <div class="wave-line"></div>
-            </div>
-
-            <div class="contact-wrapper">
-                <div class="contact-box">
-                    <p class="contact-email-label">Escríbenos a:</p>
-                    <a href="mailto:pinestic.solutions@gmail.com" class="contact-email">pinestic.solutions@gmail.com</a>
-                    
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61591644321482&locale=es_LA" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/pines.tic/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@pines.tic" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.youtube.com/channel/UCGhiNkfMXRxOqzxNWAKLv7A" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                        <a href="https://www.linkedin.com/in/breiner-pinilla-padilla-23a3751aa" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <div class="about-col">
+                    <span class="sub-title-coral">EXPERIENCIA & ENFOQUE</span>
+                    <div class="exp-list">
+                        <div class="exp-item">
+                            <h4>Virtualización & DRP</h4>
+                            <p>Nutanix, VMware vSphere, Proxmox, Veeam & Commvault</p>
+                        </div>
+                        <div class="exp-item">
+                            <h4>Ciberseguridad & SIEM</h4>
+                            <p>Hardening de servidores, WAF, Wazuh SIEM & Seguridad Perimetral</p>
+                        </div>
+                        <div class="exp-item">
+                            <h4>Monitoreo & Redes</h4>
+                            <p>Zabbix, Grafana, Rediseño y Dimensionamiento de Topologías</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Servicios Section (Fondo Blanco Gilb) -->
+    <section id="servicios" class="services-white">
+        <div class="container">
+            <div class="section-header">
+                <span class="sub-title-coral">MIS SERVICIOS</span>
+                <h2>Soluciones Técnicas de Alto Nivel</h2>
+            </div>
+
+            <div class="services-grid">
+                <!-- Servicio 1 -->
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Ciberseguridad & SIEM</h3>
+                    <p>Implementación de WAF, seguridad perimetral, monitoreo de logs, detección de amenazas e intrusiones con Wazuh.</p>
+                    <a href="#contacto" class="card-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Servicio 2 -->
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fa-solid fa-server"></i></div>
+                    <h3>Virtualización & Hardening</h3>
+                    <p>Despliegue y administración de plataformas con Nutanix, VMware vSphere y Proxmox. Endurecimiento de servidores Linux/Windows.</p>
+                    <a href="#contacto" class="card-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Servicio 3 -->
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fa-solid fa-database"></i></div>
+                    <h3>Backup & DRP</h3>
+                    <p>Protección de datos empresariales y estrategias de continuidad de negocio mediante copias de seguridad avanzadas con Veeam y Commvault.</p>
+                    <a href="#contacto" class="card-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Servicio 4 -->
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3>Monitoreo Avanzado</h3>
+                    <p>Supervisión en tiempo real de métricas de red, servidores y servicios críticos con tableros ejecutivos en Zabbix y Grafana.</p>
+                    <a href="#contacto" class="card-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Servicio 5 -->
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3>Rediseño de Redes</h3>
+                    <p>Reorganización de topologías, segmentación VLAN, optimización del tráfico, direccionamiento y dimensionamiento de red.</p>
+                    <a href="#contacto" class="card-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Servicio 6 -->
+                <div class="service-card">
+                    <div class="icon-circle"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <h3>Auditoría Perimetral</h3>
+                    <p>Diagnóstico preventivo de infraestructura, revisión de reglas en firewalls, VPNs empresariales y remediación de brechas.</p>
+                    <a href="#contacto" class="card-link">Saber Más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto Banner (Fondo Oscuro Gilb) -->
+    <section id="contacto" class="contact-banner">
+        <div class="container contact-container">
+            <div class="contact-left">
+                <span class="sub-title-coral">¿TIENES UN PROYECTO EN MENTE?</span>
+                <a href="mailto:pinestic.solutions@gmail.com" class="big-email">pinestic.solutions@gmail.com</a>
+            </div>
+            <div class="contact-right">
+                <a href="mailto:pinestic.solutions@gmail.com" class="btn-gilb">Enviar Mensaje</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>Copyright &copy; 2026 Todos los derechos reservados | <span class="brand-footer">Pinestic<span class="dot">.</span></span></p>
+        <div class="container footer-content">
+            <p>Copyright &copy; 2026 Todos los derechos reservados | <strong>Pinestic<span class="dot">.</span></strong></p>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/profile.php?id=61591644321482&locale=es_LA" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/pines.tic/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@pines.tic" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/channel/UCGhiNkfMXRxOqzxNWAKLv7A" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/in/breiner-pinilla-padilla-23a3751aa" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
         </div>
     </footer>
 
