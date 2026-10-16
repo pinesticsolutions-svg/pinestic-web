@@ -14,3 +14,8 @@
 @media(max-width:900px){.header-socials{display:none}}
 @media(max-width:640px){.footer-socials{justify-content:flex-start;margin-top:25px}.footer-socials a{width:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){.social-links a:hover{transform:none}}
+
+/* SVG sociales: sin fuentes externas de iconos */
+.social-links .social-icon{display:block;width:19px;height:19px;flex:none}
+.header-socials .social-icon{width:17px;height:17px}
+.site-footer .social-icon{width:20px;height:20px}
