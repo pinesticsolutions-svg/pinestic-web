@@ -1,0 +1,13 @@
+LOGOS DE TECNOLOGÍAS
+====================
+Los logos están en blanco con fondo transparente (PNG de 80 px de alto), listos para fondo oscuro.
+
+Activos (21): proxmox, vmware, hyper-v, nutanix, windows-server, ubuntu, wazuh, zabbix, grafana, glpi, n8n, fortinet,
+palo-alto, pfsense, mikrotik, cisco, ubiquiti, veeam, commvault, kaspersky, eset.
+
+Para agregar uno nuevo:
+1. Guarda el PNG en esta carpeta, en blanco sobre fondo transparente (por ejemplo zabbix.png).
+2. En index.html agrega una línea <li class="logo" data-logo="zabbix"><span>Zabbix</span></li> en las
+   dos listas "logo-track", y el nombre en data-logos="...".
+
+Revisa las condiciones de uso de marca de cada fabricante antes de publicar.
