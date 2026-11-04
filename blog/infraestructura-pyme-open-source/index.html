@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060f26">
+<title>Cómo armar la infraestructura de una pyme con herramientas open source | PINESTIC</title>
+<meta name="description" content="Una guía por capas para montar la infraestructura de una pyme con herramientas de código abierto: virtualización, firewall, servidores, monitoreo, seguridad, backups y gestión de TI.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.pinestic.com/blog/infraestructura-pyme-open-source/">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="PINESTIC">
+<meta property="og:title" content="Cómo armar la infraestructura de una pyme con herramientas open source | PINESTIC">
+<meta property="og:description" content="Una guía por capas para montar la infraestructura de una pyme con herramientas de código abierto: virtualización, firewall, servidores, monitoreo, seguridad, backups y gestión de TI.">
+<meta property="og:url" content="https://www.pinestic.com/blog/infraestructura-pyme-open-source/">
+<meta property="og:image" content="https://www.pinestic.com/img/blog/infraestructura.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Cómo armar la infraestructura de una pyme con herramientas open source", "description": "Una guía por capas para montar la infraestructura de una pyme con herramientas de código abierto: virtualización, firewall, servidores, monitoreo, seguridad, backups y gestión de TI.", "datePublished": "2026-11-04", "dateModified": "2026-11-04", "inLanguage": "es-CO", "mainEntityOfPage": "https://www.pinestic.com/blog/infraestructura-pyme-open-source/", "image": "https://www.pinestic.com/img/blog/infraestructura.svg", "author": {"@id": "https://www.pinestic.com/#organization", "@type": "Organization", "name": "PINESTIC"}, "publisher": {"@id": "https://www.pinestic.com/#organization"}}
+</script>
+<link rel="stylesheet" href="/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="/main.js" defer></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.5" r="1.3" fill="currentColor"/></symbol>
+<symbol id="i-tt" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 2h-3.2v13.4a3.4 3.4 0 1 1-3.3-3.4V8.8a6.6 6.6 0 1 0 6.5 6.6V8.3a8 8 0 0 0 4.7 1.5V6.6A4.8 4.8 0 0 1 16.6 2Z"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M14.2 22v-8.5h2.9l.5-3.5h-3.4V7.8c0-1 .3-1.7 1.8-1.7h1.8V3a23 23 0 0 0-2.7-.2c-2.7 0-4.6 1.7-4.6 4.7V10H7.5v3.5h3V22Z"/></symbol>
+<symbol id="i-yt" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="m10 9 6 3-6 3Z" fill="#091735"/></symbol>
+<symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 9h3v12H3Zm5.5 0h3v1.6c.5-1 1.7-1.9 3.5-1.9 3.7 0 4.4 2.3 4.4 5.4V21h-3v-6.2c0-1.5 0-3.4-2.2-3.4s-2.7 1.7-2.7 3.3V21h-3Z"/></symbol>
+<symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></symbol>
+<!-- Íconos del diagrama de red -->
+<symbol id="n-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></g></symbol>
+<symbol id="n-wall" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.3h18M3 14.6h18M9 4v5.3M15 9.3v5.3M9 14.6V20"/></g></symbol>
+<symbol id="n-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10M12 14v2.5"/></g></symbol>
+<symbol id="n-switch" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="8" width="19" height="8" rx="2"/><path d="M6 12h.01M9 12h.01M12 12h.01M15 12h.01M18 12h.01" stroke-linecap="round" stroke-width="2.2"/></g></symbol>
+<symbol id="n-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3.5" width="16" height="7" rx="1.6"/><rect x="4" y="13.5" width="16" height="7" rx="1.6"/><path d="M7.5 7h.01M7.5 17h.01M11 7h5.5M11 17h5.5" stroke-linecap="round"/></g></symbol>
+<symbol id="n-cube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="m12 2.5 8.5 4.7v9.6L12 21.5l-8.5-4.7V7.2Z"/><path d="m3.5 7.2 8.5 4.7 8.5-4.7M12 11.9v9.6"/></g></symbol>
+<symbol id="n-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></g></symbol>
+<symbol id="n-pulse" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M6 11h2.5l1.5-3 2.5 6 1.5-3H18M9 20.5h6"/></g></symbol>
+<symbol id="s-infra" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="32" height="10" rx="2.5"/><rect x="8" y="19" width="32" height="10" rx="2.5"/><rect x="8" y="32" width="32" height="10" rx="2.5"/><path d="M13 11h.01M13 24h.01M13 37h.01M20 11h14M20 24h14M20 37h14"/></g></symbol>
+<symbol id="s-monitor" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="26" rx="3"/><path d="M11 24h6l3-7 5 12 3-7h9M17 41h14M24 34v7"/></g></symbol>
+<symbol id="s-shield" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 9 11v11c0 10 6.4 17.2 15 20 8.6-2.8 15-10 15-20V11Z"/><path d="m17 24 5 5 9-10"/></g></symbol>
+<symbol id="s-backup" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="22" cy="11" rx="14" ry="5"/><path d="M8 11v24c0 2.8 6.3 5 14 5M36 11v9M8 23c0 2.8 6.3 5 14 5"/><path d="M33 27a8 8 0 1 0 7.6 10.5M41 29v5h-5"/></g></symbol>
+<symbol id="s-consult" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="13"/><path d="m31 31 10 10M15 24l4-6 4 5 4-7"/></g></symbol>
+<symbol id="s-wall" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="36" height="30" rx="3"/><path d="M6 19h36M6 29h36M17 9v10M31 19v10M17 29v10"/></g></symbol>
+<symbol id="s-cube" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m24 5 17 9.5v19L24 43 7 33.5v-19Z"/><path d="m7 14.5 17 9.5 17-9.5M24 24v19"/></g></symbol>
+<symbol id="s-tools" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M29 8a9 9 0 0 0-8.4 12.2L8 32.8a3.4 3.4 0 0 0 4.8 4.8l12.6-12.6A9 9 0 0 0 37.6 16l-5.4 5.4-5.6-1.6-1.6-5.6Z"/></g></symbol>
+<symbol id="s-support" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28v-5a14 14 0 0 1 28 0v5"/><rect x="6" y="26" width="8" height="12" rx="3"/><rect x="34" y="26" width="8" height="12" rx="3"/><path d="M38 38c0 3-3 5-8 5h-4"/></g></symbol>
+<symbol id="s-learn" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 24 9l20 9-20 9Z"/><path d="M12 22v10c0 3 5.4 6 12 6s12-3 12-6V22M44 18v12"/></g></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="PINESTIC, ir al inicio">PINESTIC<span class="brand-dot">.</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" data-nav-toggle>
+      <span class="nav-toggle-bars" aria-hidden="true"></span><span class="sr-only">Abrir menú</span>
+    </button>
+    <nav class="main-nav" id="menu" aria-label="Navegación principal" data-nav>
+      <a href="/#servicios">Soluciones</a>
+      <a href="/#metodologia">Cómo trabajamos</a>
+      <a href="/#nosotros">Nosotros</a>
+      <a href="/blog/">Blog</a>
+      <a class="button button-small primary" href="/#contacto">Contáctanos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="page-hero article-hero" aria-labelledby="post-title">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Inicio</a> / <a href="/blog/">Blog</a></p>
+      <p class="post-meta"><time datetime="2026-11-04">4 de noviembre de 2026</time></p>
+      <h1 id="post-title">Cómo armar la infraestructura de una pyme con herramientas open source</h1>
+    </div>
+  </section>
+
+  <article class="article">
+    <div class="container article-body">
+
+      <p>Una pyme puede tener una infraestructura ordenada, monitoreada y segura usando casi por completo herramientas de código abierto. La clave no está en instalar muchas herramientas, sino en organizarlas por capas, en el orden correcto y con alguien que las mantenga.</p>
+      <p>Esta es la arquitectura que proponemos como punto de partida. Cada capa responde a una pregunta concreta de la empresa.</p>
+
+      <h2>1. Virtualización: Proxmox VE</h2>
+      <p><strong>Pregunta que responde:</strong> ¿cómo aprovecho mejor mis servidores físicos?</p>
+      <p>Proxmox VE permite correr varias máquinas virtuales y contenedores Linux (LXC) en un mismo servidor, administrarlos desde una consola web y, si hay más de un servidor, agruparlos en clúster. Se usa en producción sin pagar licencia; la suscripción es opcional y da acceso a actualizaciones probadas y soporte.</p>
+      <p><strong>Consejo:</strong> usa contenedores LXC para servicios Linux livianos y máquinas virtuales para Windows, firewalls o cualquier sistema que necesite su propio núcleo.</p>
+
+      <h2>2. Firewall y red: pfSense CE</h2>
+      <p><strong>Pregunta que responde:</strong> ¿quién entra a mi red y qué puede ver cada equipo?</p>
+      <p>pfSense CE, la edición comunitaria con licencia Apache 2.0, funciona como firewall, router y servidor VPN. Con él puedes separar la red en VLAN (administración, servidores, invitados, cámaras) y dar acceso remoto seguro a tu equipo. OPNsense es una alternativa abierta con un enfoque similar.</p>
+
+      <h2>3. Servidores: Ubuntu Server o Rocky Linux</h2>
+      <p><strong>Pregunta que responde:</strong> ¿dónde corren mis aplicaciones y servicios?</p>
+      <p>Sobre Proxmox se crean los servidores que la empresa necesita: archivos, aplicaciones web, bases de datos o herramientas internas. Ubuntu Server y Rocky Linux son dos opciones estables con ciclos de soporte largos. Si la empresa necesita Windows Server (por ejemplo, para Active Directory), también puede virtualizarse en Proxmox con su licencia correspondiente.</p>
+
+      <h2>4. Monitoreo: Zabbix y Grafana</h2>
+      <p><strong>Pregunta que responde:</strong> ¿me entero de un problema antes que mis usuarios?</p>
+      <p>Zabbix vigila servidores, switches, firewall, servicios y backups, y envía alertas cuando algo se sale de lo normal. Grafana toma esos datos y los convierte en tableros claros para la gerencia o el equipo técnico.</p>
+
+      <h2>5. Seguridad: Wazuh</h2>
+      <p><strong>Pregunta que responde:</strong> ¿alguien está intentando algo raro en mis equipos?</p>
+      <p>Wazuh es una plataforma de seguridad de código abierto (licencia GPLv2) que centraliza eventos de servidores y equipos, detecta comportamientos sospechosos, revisa la configuración frente a buenas prácticas y alerta sobre vulnerabilidades conocidas.</p>
+
+      <h2>6. Backups: Proxmox Backup Server</h2>
+      <p><strong>Pregunta que responde:</strong> si todo falla, ¿puedo recuperarme?</p>
+      <p>Proxmox Backup Server, también bajo AGPLv3, hace copias incrementales, deduplicadas y cifradas de las máquinas virtuales y contenedores. Para cumplir la regla 3-2-1 (tres copias, en dos medios distintos, una fuera de la empresa) complementa con una copia externa y prueba las restauraciones con regularidad.</p>
+
+      <h2>7. Gestión de TI: GLPI</h2>
+      <p><strong>Pregunta que responde:</strong> ¿qué equipos tengo y qué solicitudes están pendientes?</p>
+      <p>GLPI lleva el inventario de equipos y licencias y funciona como mesa de ayuda para registrar y dar seguimiento a las solicitudes de los usuarios.</p>
+
+      <div class="callout">
+        <p><strong>Así se ve completa:</strong> Proxmox VE como base, pfSense protegiendo la red, servidores Linux (y Windows si hace falta) como máquinas virtuales, Zabbix y Grafana vigilando todo, Wazuh atento a la seguridad, Proxmox Backup Server protegiendo los datos y GLPI organizando la operación.</p>
+      </div>
+
+      <h2>En qué orden implementarla</h2>
+      <ol>
+        <li><strong>Diagnóstico:</strong> qué hay hoy, qué es crítico y qué falla.</li>
+        <li><strong>Base:</strong> Proxmox VE y pfSense, con la red segmentada desde el inicio.</li>
+        <li><strong>Backups:</strong> antes de migrar servicios, asegura cómo se respaldan.</li>
+        <li><strong>Migración de servidores</strong> por etapas, empezando por los menos críticos.</li>
+        <li><strong>Monitoreo y seguridad:</strong> Zabbix, Grafana y Wazuh sobre todo lo anterior.</li>
+        <li><strong>Gestión:</strong> GLPI y la documentación final de la infraestructura.</li>
+      </ol>
+
+      <h2>Lo que hay que tener en cuenta</h2>
+      <ul>
+        <li><strong>Recursos:</strong> no todo tiene que estar encendido en el mismo servidor. Dimensiona según la carga real y separa los backups del equipo principal.</li>
+        <li><strong>Actualizaciones:</strong> cada herramienta tiene su ciclo de versiones. Planea las actualizaciones y pruébalas antes de aplicarlas en producción.</li>
+        <li><strong>Conocimiento:</strong> el ahorro en licencias solo se mantiene si alguien administra y documenta la plataforma.</li>
+      </ul>
+
+      <aside class="article-cta" aria-labelledby="cta-title">
+        <h2 id="cta-title">¿Quieres una infraestructura así para tu empresa?</h2>
+        <p>Diseñamos la arquitectura a la medida de tu operación, la implementamos por etapas y la dejamos documentada.</p>
+        <a class="button primary" href="mailto:breiner.pinilla@pinestic.com?subject=Consulta%20-%20Infraestructura%20open%20source">Hablar con PINESTIC</a>
+      </aside>
+
+      <section class="sources" aria-labelledby="fuentes-title">
+        <h2 id="fuentes-title">Fuentes</h2>
+        <ul><li><a href="https://www.proxmox.com/en/products/proxmox-virtual-environment/overview" target="_blank" rel="noopener noreferrer">Proxmox VE: descripción y licencia</a></li><li><a href="https://www.proxmox.com/en/products/proxmox-backup-server/overview" target="_blank" rel="noopener noreferrer">Proxmox Backup Server</a></li><li><a href="https://pfsense.org/license" target="_blank" rel="noopener noreferrer">pfSense: licencia del proyecto</a></li><li><a href="https://www.zabbix.com/documentation/current/en/manual" target="_blank" rel="noopener noreferrer">Zabbix: documentación oficial</a></li><li><a href="https://documentation.wazuh.com/current/index.html" target="_blank" rel="noopener noreferrer">Wazuh: documentación oficial</a></li><li><a href="https://glpi-project.org/" target="_blank" rel="noopener noreferrer">GLPI: sitio oficial</a></li></ul>
+      </section>
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="/">PINESTIC<span class="brand-dot">.</span></a>
+      <p>Tecnología que impulsa tu empresa.</p>
+      <nav class="social-links" aria-label="Redes sociales de PINESTIC">
+        <a href="https://www.instagram.com/pines.tic/" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en Instagram"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-ig"/></svg></a>
+        <a href="https://www.tiktok.com/@pines.tic" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en TikTok"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-tt"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61591644321482" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en Facebook"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-fb"/></svg></a>
+        <a href="https://www.youtube.com/channel/UCGhiNkfMXRxOqzxNWAKLv7A" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en YouTube"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-yt"/></svg></a>
+      </nav>
+    </div>
+    <div>
+      <h2 class="footer-h">Contáctanos</h2>
+      <ul class="footer-list">
+        <li><a href="mailto:breiner.pinilla@pinestic.com">breiner.pinilla@pinestic.com</a></li>
+        <li><a href="tel:+573023712332">+57 302 371 2332</a></li>
+        <li>Atención remota en Colombia</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-h">Enlaces</h2>
+      <ul class="footer-list">
+        <li><a href="/#servicios">Soluciones</a></li>
+        <li><a href="/#metodologia">Cómo trabajamos</a></li>
+        <li><a href="/#nosotros">Nosotros</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-base"><small>© <span data-year>2026</span> PINESTIC. Todos los derechos reservados.</small><small>Las marcas de tecnologías mencionadas pertenecen a sus fabricantes; su mención no implica alianza ni certificación.</small></div>
+</footer>
+<a class="wa-float" href="https://wa.me/573023712332?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20PINESTIC" target="_blank" rel="noopener noreferrer" aria-label="Escribir a PINESTIC por WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+</body>
+</html>
