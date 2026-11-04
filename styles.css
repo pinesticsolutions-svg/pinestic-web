@@ -750,3 +750,25 @@ html:not(.js) .lc-btn{display:none}
 .panel-zoom{box-shadow:0 2px 6px rgba(0,0,0,.25),0 40px 90px rgba(0,0,0,.5)}
 .light .panel-zoom{box-shadow:0 2px 6px rgba(9,23,53,.12),0 40px 80px rgba(9,23,53,.28)}
 .contact:not(.light) .faq-title{color:var(--white)}
+
+/* PINESTIC 2.0: tarjetas de blog con portadas y lectura clara */
+.post-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.page-hero~.section .post-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.blog-card{padding:0!important;overflow:hidden;background:#fff!important;color:#091735!important;border:1px solid #e2e8f0;border-radius:17px;box-shadow:0 9px 24px rgba(9,23,53,.08);display:flex;flex-direction:column;min-width:0;transition:transform .2s ease,box-shadow .2s ease}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(9,23,53,.14)}
+.blog-card-cover{display:block;aspect-ratio:16/9;overflow:hidden;background:#091735}
+.blog-card-cover img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+.blog-card:hover .blog-card-cover img{transform:scale(1.025)}
+.blog-card-content{display:flex;flex-direction:column;flex:1;padding:23px}
+.blog-card .post-meta{font-size:.82rem;color:#64748b!important;margin:0 0 12px}
+.blog-card h3{font-size:1.14rem;line-height:1.38;margin:0 0 11px;color:#091735!important}
+.blog-card h3 a{color:#091735!important;text-decoration:none}
+.blog-card h3 a:hover{color:#00718b!important}
+.blog-card .blog-excerpt{font-size:.95rem;line-height:1.55;color:#475569!important;margin:0 0 22px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.blog-card .blog-read{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding:12px 16px;border-radius:24px;background:#091735;color:#fff!important;text-decoration:none;font-weight:600;font-size:.94rem}
+.blog-card .blog-read:hover{background:#103260;color:#fff!important}
+.blog-card .blog-read span{color:#ff606a;font-size:1.3rem}
+.panel-shot figcaption,.report figcaption{font-size:.76rem!important;opacity:.75;text-align:right!important;line-height:1.45;margin-top:8px!important}
+@media(max-width:980px){.post-grid,.page-hero~.section .post-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.post-grid,.page-hero~.section .post-grid{grid-template-columns:1fr}.blog-card-content{padding:20px}}
+@media(prefers-reduced-motion:reduce){.blog-card,.blog-card-cover img{transition:none}.blog-card:hover,.blog-card:hover img{transform:none}}
