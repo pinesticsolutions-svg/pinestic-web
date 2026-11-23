@@ -434,6 +434,190 @@
     gates.push({ mats: [mat], veil: veil, sMat: sMat, pool: pool, light: light });
   });
 
+
+  /* ---------- Capas de protección: un efecto por estación (data-effect) ----------
+     Solo se dibujan y animan cuando la cámara está cerca de su estación. */
+  var FX = [];
+  var fr = rng(99);
+  var FW = AISLE - 0.18, FH = ROOF_Y - 0.12;
+  function addSprite(group, col, size) {
+    var m = new THREE.SpriteMaterial({ map: GLOW, color: col, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+    var s = new THREE.Sprite(m); s.scale.set(size, size, 1); group.add(s); return s;
+  }
+  function easeK(cur, on, dt, lo) { return cur + ((on ? 1 : lo) - cur) * Math.min(1, dt * 3); }
+  function hexTexture() {
+    var c = document.createElement('canvas'); c.width = c.height = 256;
+    var g = c.getContext('2d'); g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 2;
+    var r = 18, w = Math.sqrt(3) * r;
+    for (var row = -1; row < 12; row++) for (var col = -1; col < 10; col++) {
+      var cx = col * w + (row % 2 ? w / 2 : 0), cy = row * r * 1.5;
+      g.beginPath();
+      for (var a = 0; a < 6; a++) { var an = Math.PI / 3 * a + Math.PI / 6; g.lineTo(cx + r * Math.cos(an), cy + r * Math.sin(an)); }
+      g.closePath(); g.stroke();
+    }
+    var t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(2, 2.4); return t;
+  }
+  function racksNear(z0, a, b) { return rackPos.filter(function (p) { return p.z < z0 + a && p.z > z0 - b; }); }
+
+  // 1. Firewall: escudo hexagonal; el tráfico permitido (cian) pasa y el bloqueado (coral) choca y se deshace.
+  function firewallFX(z0) {
+    var grp = new THREE.Group(), k = 0, flashA = 0;
+    var shield = new THREE.Mesh(new THREE.PlaneGeometry(FW, FH), new THREE.MeshBasicMaterial({ map: hexTexture(), color: C.coral, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    shield.position.set(0, FH / 2, z0); grp.add(shield);
+    var flash = addSprite(grp, C.coral, 1.5);
+    var pk = [];
+    function reset(p, first) {
+      p.x = (fr() - 0.5) * (FW - 0.4); p.y = 0.4 + fr() * (FH - 0.7);
+      p.z = z0 - 5 - fr() * (first ? 12 : 7); p.v = 2.4 + fr() * 1.8; p.hit = 0;
+    }
+    for (var n = 0; n < (mobile ? 9 : 16); n++) { var p = { bad: n % 3 === 0 }; p.s = addSprite(grp, p.bad ? C.coral : C.cyan, 0.36); reset(p, true); pk.push(p); }
+    return { z: z0, group: grp, update: function (dt, t, on) {
+      k = easeK(k, on, dt, 0.18);
+      shield.material.opacity = (0.06 + 0.22 * k) + flashA * 0.18 * k;
+      shield.material.map.offset.y = t * 0.02;
+      pk.forEach(function (p) {
+        if (p.hit > 0) {
+          p.hit -= dt * 2.4;
+          var a = Math.max(0, p.hit);
+          p.s.material.opacity = a * k; p.s.scale.setScalar(0.36 + (1 - a) * 0.9);
+          if (p.hit <= 0) { p.s.scale.setScalar(0.36); reset(p); }
+          return;
+        }
+        p.z += p.v * dt;
+        if (p.bad && p.z >= z0 - 0.03) { p.z = z0 - 0.03; p.hit = 1; flash.position.set(p.x, p.y, z0 + 0.02); flashA = 1; }
+        else if (!p.bad && p.z > z0 + 3.2) reset(p);
+        p.s.position.set(p.x, p.y, p.z);
+        p.s.material.opacity = 0.95 * k * Math.min(1, Math.max(0, (p.z - (z0 - 17)) / 3));
+      });
+      flashA = Math.max(0, flashA - dt * 2.2);
+      flash.material.opacity = flashA * 0.7 * k;
+    } };
+  }
+
+  // 2. Hardening: los puertos abiertos (ámbar) de los racks cercanos se cierran uno a uno y quedan en verde.
+  function hardeningFX(z0) {
+    var grp = new THREE.Group(), timer = 0;
+    var near = racksNear(z0, 2.5, 9);
+    var n = Math.min(near.length * 2, mobile ? 18 : 34);
+    var amberC = new THREE.Color(0xffa62b), greenC = new THREE.Color(C.green), tmp = new THREE.Color();
+    var mesh = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.022, 0.022), new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false }), Math.max(1, n));
+    var items = [];
+    for (var q = 0; q < n; q++) {
+      var p = near[q % near.length];
+      var y = 0.3 + fr() * 1.6, dz = (fr() - 0.5) * 0.42;
+      dummy.position.set(p.x - p.side * 0.007, y, p.z + dz);
+      dummy.rotation.set(0, p.side > 0 ? -Math.PI / 2 : Math.PI / 2, 0); dummy.updateMatrix();
+      mesh.setMatrixAt(q, dummy.matrix); mesh.setColorAt(q, amberC);
+      var sp = addSprite(grp, 0xffa62b, 0.2); sp.position.set(p.x - p.side * 0.03, y, p.z + dz);
+      items.push({ sp: sp, delay: (q / n) * 2.8 + fr() * 0.25 });
+    }
+    grp.add(mesh);
+    return { z: z0, group: grp, update: function (dt, t, on) {
+      timer = on ? timer + dt : Math.max(0, timer - dt * 3);
+      items.forEach(function (it, q) {
+        var s = Math.min(1, Math.max(0, (timer - it.delay) / 0.35));
+        tmp.copy(amberC).lerp(greenC, s);
+        mesh.setColorAt(q, tmp); it.sp.material.color.copy(tmp);
+        it.sp.material.opacity = 0.75 - s * 0.35 + (s > 0 && s < 1 ? 0.4 : 0);
+      });
+      mesh.instanceColor.needsUpdate = true;
+    } };
+  }
+
+  // 3. SIEM: los eventos viajan desde los racks hasta un punto central; de vez en cuando uno es sospechoso (coral).
+  function siemFX(z0) {
+    var grp = new THREE.Group(), k = 0, nodeFlash = 0, alertClock = 0;
+    var node = new THREE.Vector3(0, 1.82, z0 - 1.6);
+    var core = addSprite(grp, 0xbfefff, 0.8); core.position.copy(node);
+    var ring = new THREE.Mesh(new THREE.OctahedronGeometry(0.2, 0), new THREE.MeshBasicMaterial({ color: C.cyan, wireframe: true, transparent: true, opacity: 0, toneMapped: false }));
+    ring.position.copy(node); grp.add(ring);
+    var src = racksNear(z0, 1, 10).filter(function (_, i) { return i % 2 === 0; }).slice(0, mobile ? 6 : 10).map(function (p) {
+      return new THREE.Vector3(p.x - p.side * 0.02, 0.6 + fr() * 1.2, p.z);
+    });
+    var lp = [];
+    src.forEach(function (s) { lp.push(s.x, s.y, s.z, node.x, node.y, node.z); });
+    var lg = new THREE.BufferGeometry(); lg.setAttribute('position', new THREE.Float32BufferAttribute(lp, 3));
+    var lines = new THREE.LineSegments(lg, new THREE.LineBasicMaterial({ color: C.cyan, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+    grp.add(lines);
+    var coralC = new THREE.Color(C.coral), cyanC = new THREE.Color(C.cyan), whiteC = new THREE.Color(0xbfefff);
+    var pulses = [];
+    for (var n = 0; n < (mobile ? 8 : 14); n++) {
+      var sp = addSprite(grp, C.cyan, 0.2);
+      pulses.push({ sp: sp, src: src[n % src.length], u: fr(), v: 0.35 + fr() * 0.35, bad: false });
+    }
+    return { z: z0, group: grp, update: function (dt, t, on) {
+      k = easeK(k, on, dt, 0.15);
+      alertClock += dt;
+      lines.material.opacity = 0.28 * k;
+      pulses.forEach(function (p) {
+        p.u += p.v * dt;
+        if (p.u >= 1) {
+          if (p.bad) nodeFlash = 1;
+          p.u = 0; p.src = src[Math.floor(fr() * src.length)];
+          p.bad = alertClock > 4.5; if (p.bad) alertClock = 0;
+          p.sp.material.color.copy(p.bad ? coralC : cyanC);
+          p.sp.scale.setScalar(p.bad ? 0.34 : 0.2);
+        }
+        p.sp.position.lerpVectors(p.src, node, p.u);
+        p.sp.material.opacity = (p.bad ? 1 : 0.8) * k * Math.min(1, p.u * 6);
+      });
+      nodeFlash = Math.max(0, nodeFlash - dt * 0.9);
+      core.material.color.copy(whiteC).lerp(coralC, nodeFlash);
+      core.material.opacity = (0.55 + nodeFlash * 0.45) * k;
+      core.scale.setScalar(0.8 + nodeFlash * 0.9 + Math.sin(t * 2) * 0.05);
+      ring.material.color.copy(cyanC).lerp(coralC, nodeFlash);
+      ring.material.opacity = 0.8 * k;
+      ring.rotation.y = t * 0.8; ring.rotation.x = t * 0.4;
+    } };
+  }
+
+  // 5. Backups: los datos viajan a una bóveda al fondo y cada cierto tiempo regresa una restauración.
+  function backupFX(z0) {
+    var grp = new THREE.Group(), k = 0, wave = 3;
+    var vault = new THREE.Vector3(0, 1.1, z0 - 7.5);
+    var glow = addSprite(grp, C.cyan, 2.4); glow.position.copy(vault);
+    var box = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(0.9, 1.2, 0.9)), new THREE.LineBasicMaterial({ color: C.cyan, transparent: true, opacity: 0, toneMapped: false }));
+    box.position.copy(vault); grp.add(box);
+    var flow = [];
+    for (var n = 0; n < (mobile ? 12 : 22); n++) {
+      var a = new THREE.Vector3((fr() - 0.5) * 1.4, 0.5 + fr() * 1.3, z0 + 1.5 - fr() * 5);
+      flow.push({ sp: addSprite(grp, C.cyan, 0.17), a: a, u: fr(), v: 0.18 + fr() * 0.16 });
+    }
+    var back = [];
+    for (var m = 0; m < (mobile ? 6 : 10); m++) {
+      back.push({ sp: addSprite(grp, C.green, 0.28), b: new THREE.Vector3((fr() - 0.5) * 1.2, 0.6 + fr() * 1.1, z0 + 2.5), d: fr() * 0.25 });
+    }
+    return { z: z0, group: grp, update: function (dt, t, on) {
+      k = easeK(k, on, dt, 0.2);
+      // La cámara cruza la bóveda al ir al cierre: se desvanece antes para no atravesarla
+      var pass = Math.min(1, Math.max(0, (camZ - vault.z - 1.5) / 2.5));
+      k *= pass; box.visible = pass > 0.02;
+      glow.material.opacity = (0.35 + 0.15 * Math.sin(t * 1.5)) * k;
+      box.material.opacity = 0.7 * k; box.rotation.y = t * 0.25;
+      flow.forEach(function (f) {
+        f.u += f.v * dt; if (f.u > 1) f.u -= 1;
+        f.sp.position.lerpVectors(f.a, vault, f.u);
+        f.sp.material.opacity = 0.8 * k * Math.min(1, f.u * 5) * Math.min(1, (1 - f.u) * 5);
+      });
+      wave += dt * 0.45;
+      if (wave > 2.6) wave = 0;
+      back.forEach(function (b) {
+        var u = Math.min(1, Math.max(0, wave - b.d));
+        b.sp.position.lerpVectors(vault, b.b, u);
+        b.sp.material.opacity = (u > 0 && u < 1 ? 0.95 : 0) * k;
+      });
+    } };
+  }
+
+  stations.forEach(function (st, i) {
+    var kind = st.getAttribute('data-effect'), z0 = gateZ(i), fx = null;
+    if (kind === 'firewall') fx = firewallFX(z0);
+    else if (kind === 'hardening') fx = hardeningFX(z0);
+    else if (kind === 'siem') fx = siemFX(z0);
+    else if (kind === 'backup') fx = backupFX(z0);
+    if (fx) { fx.index = i; fx.group.visible = false; scene.add(fx.group); FX.push(fx); }
+  });
+
   /* ---------- Partículas de polvo en suspensión ---------- */
   var pCount = mobile ? 250 : 600;
   var pGeo = new THREE.BufferGeometry(), pPos = new Float32Array(pCount * 3);
@@ -592,6 +776,12 @@
       g.sMat.opacity += ((on ? 0.85 : 0.3) - g.sMat.opacity) * 0.08;
       g.pool.material.opacity += ((on ? 0.45 : 0.12) - g.pool.material.opacity) * 0.08;
       g.light.intensity += ((on ? 9 : 1) - g.light.intensity) * 0.08;
+    });
+
+    FX.forEach(function (f) {
+      var near = Math.abs(camZ - f.z) < 22;
+      f.group.visible = near;
+      if (near) f.update(dt, t, f.index === active);
     });
 
     blinkTimer += dt;

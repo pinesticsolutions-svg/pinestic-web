@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060f26">
+<title>Conoce Wazuh | SIEM y seguridad de servidores con PINESTIC</title>
+<meta name="description" content="Qué es Wazuh, qué puede detectar y cómo lo implementamos en tu empresa: análisis de eventos, integridad de archivos, vulnerabilidades y configuración segura.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.pinestic.com/plataformas/wazuh/">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="PINESTIC">
+<meta property="og:title" content="Conoce Wazuh | SIEM y seguridad de servidores con PINESTIC">
+<meta property="og:description" content="Qué es Wazuh, qué puede detectar y cómo lo implementamos en tu empresa: análisis de eventos, integridad de archivos, vulnerabilidades y configuración segura.">
+<meta property="og:url" content="https://www.pinestic.com/plataformas/wazuh/">
+<meta property="og:image" content="https://www.pinestic.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "@id": "https://www.pinestic.com/plataformas/wazuh/#webpage", "url": "https://www.pinestic.com/plataformas/wazuh/", "name": "Conoce Wazuh | SIEM y seguridad de servidores con PINESTIC", "description": "Qué es Wazuh, qué puede detectar y cómo lo implementamos en tu empresa: análisis de eventos, integridad de archivos, vulnerabilidades y configuración segura.", "inLanguage": "es-CO", "isPartOf": {"@id": "https://www.pinestic.com/#website"}, "about": {"@type": "SoftwareApplication", "name": "Wazuh", "applicationCategory": "SecurityApplication", "operatingSystem": "Linux"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.pinestic.com/"}, {"@type": "ListItem", "position": 2, "name": "Plataformas", "item": "https://www.pinestic.com/#plataformas"}, {"@type": "ListItem", "position": 3, "name": "Conoce Wazuh", "item": "https://www.pinestic.com/plataformas/wazuh/"}]}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Wazuh es un SOC?", "acceptedAnswer": {"@type": "Answer", "text": "No. Wazuh es la plataforma. PINESTIC la implementa en tu infraestructura y tu equipo la opera; no ofrecemos vigilancia 24/7 ni respuesta a incidentes."}}, {"@type": "Question", "name": "¿Reemplaza el antivirus?", "acceptedAnswer": {"@type": "Answer", "text": "No, lo complementa. El antivirus protege cada equipo; Wazuh centraliza y analiza los eventos de todos para que veas lo que está pasando."}}, {"@type": "Question", "name": "¿Wazuh tiene costo de licencia?", "acceptedAnswer": {"@type": "Answer", "text": "No por el software, porque es de código abierto. Sí tienen costo la implementación, los servidores donde funciona y el soporte, y todo queda claro en la propuesta."}}, {"@type": "Question", "name": "¿Qué equipos se pueden integrar?", "acceptedAnswer": {"@type": "Answer", "text": "Servidores y equipos Windows, Linux y macOS con su agente, además de registros de firewall y otros dispositivos de red."}}]}]}
+</script>
+<link rel="stylesheet" href="/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="/main.js" defer></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.5" r="1.3" fill="currentColor"/></symbol>
+<symbol id="i-tt" viewBox="0 0 24 24"><path fill="currentColor" d="M16.6 2h-3.2v13.4a3.4 3.4 0 1 1-3.3-3.4V8.8a6.6 6.6 0 1 0 6.5 6.6V8.3a8 8 0 0 0 4.7 1.5V6.6A4.8 4.8 0 0 1 16.6 2Z"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M14.2 22v-8.5h2.9l.5-3.5h-3.4V7.8c0-1 .3-1.7 1.8-1.7h1.8V3a23 23 0 0 0-2.7-.2c-2.7 0-4.6 1.7-4.6 4.7V10H7.5v3.5h3V22Z"/></symbol>
+<symbol id="i-yt" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="m10 9 6 3-6 3Z" fill="#091735"/></symbol>
+<symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 9h3v12H3Zm5.5 0h3v1.6c.5-1 1.7-1.9 3.5-1.9 3.7 0 4.4 2.3 4.4 5.4V21h-3v-6.2c0-1.5 0-3.4-2.2-3.4s-2.7 1.7-2.7 3.3V21h-3Z"/></symbol>
+<symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></symbol>
+<!-- Íconos del diagrama de red -->
+<symbol id="n-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></g></symbol>
+<symbol id="n-wall" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9.3h18M3 14.6h18M9 4v5.3M15 9.3v5.3M9 14.6V20"/></g></symbol>
+<symbol id="n-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10M12 14v2.5"/></g></symbol>
+<symbol id="n-switch" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="8" width="19" height="8" rx="2"/><path d="M6 12h.01M9 12h.01M12 12h.01M15 12h.01M18 12h.01" stroke-linecap="round" stroke-width="2.2"/></g></symbol>
+<symbol id="n-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="3.5" width="16" height="7" rx="1.6"/><rect x="4" y="13.5" width="16" height="7" rx="1.6"/><path d="M7.5 7h.01M7.5 17h.01M11 7h5.5M11 17h5.5" stroke-linecap="round"/></g></symbol>
+<symbol id="n-cube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="m12 2.5 8.5 4.7v9.6L12 21.5l-8.5-4.7V7.2Z"/><path d="m3.5 7.2 8.5 4.7 8.5-4.7M12 11.9v9.6"/></g></symbol>
+<symbol id="n-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/></g></symbol>
+<symbol id="n-pulse" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M6 11h2.5l1.5-3 2.5 6 1.5-3H18M9 20.5h6"/></g></symbol>
+<symbol id="s-infra" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="32" height="10" rx="2.5"/><rect x="8" y="19" width="32" height="10" rx="2.5"/><rect x="8" y="32" width="32" height="10" rx="2.5"/><path d="M13 11h.01M13 24h.01M13 37h.01M20 11h14M20 24h14M20 37h14"/></g></symbol>
+<symbol id="s-monitor" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="38" height="26" rx="3"/><path d="M11 24h6l3-7 5 12 3-7h9M17 41h14M24 34v7"/></g></symbol>
+<symbol id="s-shield" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 9 11v11c0 10 6.4 17.2 15 20 8.6-2.8 15-10 15-20V11Z"/><path d="m17 24 5 5 9-10"/></g></symbol>
+<symbol id="s-backup" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="22" cy="11" rx="14" ry="5"/><path d="M8 11v24c0 2.8 6.3 5 14 5M36 11v9M8 23c0 2.8 6.3 5 14 5"/><path d="M33 27a8 8 0 1 0 7.6 10.5M41 29v5h-5"/></g></symbol>
+<symbol id="s-consult" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="13"/><path d="m31 31 10 10M15 24l4-6 4 5 4-7"/></g></symbol>
+<symbol id="s-wall" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="36" height="30" rx="3"/><path d="M6 19h36M6 29h36M17 9v10M31 19v10M17 29v10"/></g></symbol>
+<symbol id="s-cube" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="m24 5 17 9.5v19L24 43 7 33.5v-19Z"/><path d="m7 14.5 17 9.5 17-9.5M24 24v19"/></g></symbol>
+<symbol id="s-tools" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M29 8a9 9 0 0 0-8.4 12.2L8 32.8a3.4 3.4 0 0 0 4.8 4.8l12.6-12.6A9 9 0 0 0 37.6 16l-5.4 5.4-5.6-1.6-1.6-5.6Z"/></g></symbol>
+<symbol id="s-support" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28v-5a14 14 0 0 1 28 0v5"/><rect x="6" y="26" width="8" height="12" rx="3"/><rect x="34" y="26" width="8" height="12" rx="3"/><path d="M38 38c0 3-3 5-8 5h-4"/></g></symbol>
+<symbol id="s-learn" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 24 9l20 9-20 9Z"/><path d="M12 22v10c0 3 5.4 6 12 6s12-3 12-6V22M44 18v12"/></g></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="PINESTIC, ir al inicio">PINESTIC<span class="brand-dot">.</span></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" data-nav-toggle>
+      <span class="nav-toggle-bars" aria-hidden="true"></span><span class="sr-only">Abrir menú</span>
+    </button>
+    <nav class="main-nav" id="menu" aria-label="Navegación principal" data-nav>
+      <div class="nav-group" data-subnav>
+        <button class="nav-sub-toggle" type="button" aria-expanded="false" aria-controls="sub-soluciones">Soluciones</button>
+        <ul class="nav-sub" id="sub-soluciones">
+          <li><a href="/soluciones/infraestructura/"><strong>Infraestructura TI</strong><span>Monitoreo, virtualización y servidores</span></a></li>
+          <li><a href="/soluciones/ciberseguridad/"><strong>Ciberseguridad</strong><span>SIEM, hardening y evaluaciones</span></a></li>
+          <li><a href="/soluciones/redes-y-continuidad/"><strong>Redes y continuidad</strong><span>Firewall y backups</span></a></li>
+          <li class="nav-sub-label" aria-hidden="true">Plataformas</li>
+          <li><a href="/plataformas/zabbix/"><strong>Conoce Zabbix</strong><span>Monitoreo de infraestructura</span></a></li>
+          <li><a href="/plataformas/wazuh/"><strong>Conoce Wazuh</strong><span>SIEM y seguridad de servidores</span></a></li>
+          <li class="nav-sub-all"><a href="/#servicios">Ver todas las soluciones</a></li>
+        </ul>
+      </div>
+      <a href="/#metodologia">Cómo trabajamos</a>
+      <a href="/#nosotros">Nosotros</a>
+      <a href="/blog/">Blog</a>
+      <a class="button button-small primary" href="/#contacto">Contáctanos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="page-hero sol-hero sol-tone-coral" aria-labelledby="pl-title">
+    <div class="plexus-wrap" aria-hidden="true"><canvas class="plexus" data-plexus data-tone="coral"></canvas></div>
+    <div class="container sol-grid">
+      <div class="sol-copy">
+        <p class="pill">Conoce Wazuh</p>
+        <h1 id="pl-title">Wazuh: visibilidad sobre la seguridad de tus servidores</h1>
+        <p>Wazuh es una plataforma de seguridad de código abierto que centraliza y analiza los eventos de tus servidores y equipos para detectar actividad sospechosa. En PINESTIC la diseñamos e implementamos en tu infraestructura.</p>
+        <ul class="station-logos sol-logos" aria-label="Plataforma"><li><img src="/logos/wazuh.png" alt="Wazuh" width="240" height="80"></li></ul>
+        <div class="actions"><a class="button primary" href="mailto:info@pinestic.com?subject=Consulta%20sobre%20Wazuh%20-%20PINESTIC">Hablemos de Wazuh</a><a class="button outline" href="#galeria">Ver cómo se ve</a></div>
+      </div>
+      <figure class="sol-shot">
+        <div class="sol-frame"><img src="/img/panel-wazuh-1600.webp" srcset="/img/panel-wazuh-900.webp 900w, /img/panel-wazuh-1600.webp 1600w" sizes="(max-width:960px) 92vw, 46vw" width="1600" height="900" alt="Panel de Wazuh con alertas de seguridad y tácticas MITRE ATT&amp;CK" fetchpriority="high" decoding="async"></div>
+        <figcaption>Interfaz de Wazuh: alertas de seguridad. Imagen de referencia del fabricante.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section light" aria-labelledby="pl-what-title">
+    <div class="container pl-what">
+      <div>
+        <p class="pill">Qué es Wazuh</p>
+        <h2 id="pl-what-title">Un SIEM de código abierto para detectar lo que no debería pasar</h2>
+        <p>Wazuh instala un agente liviano en cada servidor o equipo. El agente envía registros y eventos a un servidor central, que los analiza con reglas, los relaciona con técnicas de ataque conocidas (MITRE ATT&amp;CK) y genera alertas por nivel de severidad.</p><p>Es software de código abierto: no se paga licencia por el programa. La implementación, los servidores donde funciona y el soporte sí tienen costo, y lo verás claro en la propuesta.</p>
+      </div>
+      <dl class="pl-facts" aria-label="Datos de Wazuh"><div><dt>Tipo</dt><dd>SIEM y seguridad de servidores y equipos</dd></div><div><dt>Licencia</dt><dd>Código abierto</dd></div><div><dt>Dónde funciona</dt><dd>En tu infraestructura</dd></div><div><dt>Agentes</dt><dd>Windows, Linux y macOS</dd></div><div><dt>Quién lo opera</dt><dd>Tu equipo, con soporte opcional de PINESTIC</dd></div></dl>
+    </div>
+  </section>
+
+  <section class="section light section-white" aria-labelledby="pl-caps-title">
+    <div class="container">
+      <header class="section-title">
+        <p class="pill">Funciones</p>
+        <h2 id="pl-caps-title">Qué puede detectar</h2>
+        <p>Varias capas de visibilidad en una sola plataforma, con alertas priorizadas por severidad.</p>
+      </header>
+      <div class="card-grid">
+        <article class="glow-card service-card pl-cap" data-glow>
+          <div class="card-top"><span class="icon-box"><svg class="card-icon" aria-hidden="true"><use href="#s-shield"/></svg></span></div>
+          <h3>Análisis de eventos</h3>
+          <p>Registros de servidores, firewall y aplicaciones, centralizados y analizados con reglas.</p>
+        </article>
+        <article class="glow-card service-card pl-cap" data-glow>
+          <div class="card-top"><span class="icon-box"><svg class="card-icon" aria-hidden="true"><use href="#s-tools"/></svg></span></div>
+          <h3>Integridad de archivos</h3>
+          <p>Avisa cuando se crean, modifican o eliminan archivos y configuraciones importantes.</p>
+        </article>
+        <article class="glow-card service-card pl-cap" data-glow>
+          <div class="card-top"><span class="icon-box"><svg class="card-icon" aria-hidden="true"><use href="#s-consult"/></svg></span></div>
+          <h3>Vulnerabilidades</h3>
+          <p>Identifica software instalado con vulnerabilidades conocidas en cada equipo.</p>
+        </article>
+        <article class="glow-card service-card pl-cap" data-glow>
+          <div class="card-top"><span class="icon-box"><svg class="card-icon" aria-hidden="true"><use href="#s-infra"/></svg></span></div>
+          <h3>Configuración segura</h3>
+          <p>Revisa la configuración de los servidores frente a guías de buenas prácticas, como CIS.</p>
+        </article>
+        <article class="glow-card service-card pl-cap" data-glow>
+          <div class="card-top"><span class="icon-box"><svg class="card-icon" aria-hidden="true"><use href="#s-monitor"/></svg></span></div>
+          <h3>Mapeo MITRE ATT&amp;CK</h3>
+          <p>Relaciona cada alerta con tácticas y técnicas de ataque conocidas.</p>
+        </article>
+        <article class="glow-card service-card pl-cap" data-glow>
+          <div class="card-top"><span class="icon-box"><svg class="card-icon" aria-hidden="true"><use href="#s-backup"/></svg></span></div>
+          <h3>Apoyo al cumplimiento</h3>
+          <p>Paneles que ayudan a revisar requisitos de normas como PCI DSS. No reemplazan una auditoría certificada.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt pl-gal-sec" id="galeria" aria-labelledby="pl-gal-title">
+    <div class="plexus-wrap plexus-top" aria-hidden="true"><canvas class="plexus" data-plexus data-tone="coral"></canvas></div>
+    <div class="container">
+      <header class="section-title">
+        <p class="pill">Galería</p>
+        <h2 id="pl-gal-title">Así se ve Wazuh</h2>
+        <p>Toca una imagen para ampliarla.</p>
+      </header>
+      <div class="pl-gallery">
+        <figure class="pl-fig" data-reveal>
+          <button class="pl-frame" type="button" data-lightbox aria-label="Ampliar imagen"><img src="/img/panel-wazuh-1600.webp" srcset="/img/panel-wazuh-900.webp 900w, /img/panel-wazuh-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="900" alt="Alertas de seguridad, tácticas MITRE ATT&amp;CK y eventos recientes" loading="lazy" decoding="async"></button>
+          <figcaption>Alertas de seguridad, tácticas MITRE ATT&amp;CK y eventos recientes. <span>Imagen de referencia del fabricante.</span></figcaption>
+        </figure>
+        <figure class="pl-fig" data-reveal>
+          <button class="pl-frame" type="button" data-lightbox aria-label="Ampliar imagen"><img src="/img/plataformas/wazuh-laboratorio-1600.webp" srcset="/img/plataformas/wazuh-laboratorio-900.webp 900w, /img/plataformas/wazuh-laboratorio-1600.webp 1244w" sizes="(max-width:860px) 92vw, 46vw" width="1244" height="786" alt="Alertas por severidad, integridad de archivos y vulnerabilidades" loading="lazy" decoding="async"></button>
+          <figcaption>Alertas por severidad, integridad de archivos y vulnerabilidades. <span>Captura del laboratorio de PINESTIC.</span></figcaption>
+        </figure>
+        <figure class="pl-fig" data-reveal>
+          <button class="pl-frame" type="button" data-lightbox aria-label="Ampliar imagen"><img src="/img/panel-wazuh-vulnerabilidades-1600.webp" srcset="/img/panel-wazuh-vulnerabilidades-900.webp 900w, /img/panel-wazuh-vulnerabilidades-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="900" alt="Vulnerabilidades detectadas por severidad y por sistema operativo" loading="lazy" decoding="async"></button>
+          <figcaption>Vulnerabilidades detectadas por severidad y por sistema operativo. <span>Imagen de referencia del fabricante.</span></figcaption>
+        </figure>
+        <figure class="pl-fig" data-reveal>
+          <button class="pl-frame" type="button" data-lightbox aria-label="Ampliar imagen"><img src="/img/panel-wazuh-cumplimiento-1600.webp" srcset="/img/panel-wazuh-cumplimiento-900.webp 900w, /img/panel-wazuh-cumplimiento-1600.webp 1600w" sizes="(max-width:860px) 92vw, 46vw" width="1600" height="900" alt="Panel de cumplimiento con requisitos de PCI DSS" loading="lazy" decoding="async"></button>
+          <figcaption>Panel de cumplimiento con requisitos de PCI DSS. <span>Imagen de referencia del fabricante.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light" aria-labelledby="pl-steps-title">
+    <div class="container">
+      <header class="section-title">
+        <p class="pill">Implementación</p>
+        <h2 id="pl-steps-title">Cómo implementamos Wazuh</h2>
+        <p>Un proyecto con alcance, entregables y tiempos definidos. La plataforma queda en tu infraestructura y la opera tu equipo.</p>
+      </header>
+      <ol class="timeline" data-timeline>
+        <li><span class="step-n" aria-hidden="true">1</span><h3>Levantamiento</h3><p>Definimos qué servidores y equipos proteger y qué fuentes de eventos integrar.</p></li>
+        <li><span class="step-n" aria-hidden="true">2</span><h3>Instalación</h3><p>Instalamos Wazuh en tu infraestructura y desplegamos los agentes.</p></li>
+        <li><span class="step-n" aria-hidden="true">3</span><h3>Ajuste</h3><p>Configuramos reglas, alertas iniciales y tableros, y reducimos los falsos positivos.</p></li>
+        <li><span class="step-n" aria-hidden="true">4</span><h3>Entrega</h3><p>Hacemos pruebas de detección, documentamos y capacitamos a tu equipo.</p></li>
+      </ol>
+      <p class="sol-support">Después de la entrega puedes contratar soporte especializado por bolsa de horas. <a class="text-link" href="/soluciones/ciberseguridad/">Ver la solución completa de Ciberseguridad</a></p>
+    </div>
+  </section>
+
+  <section class="section contact" aria-labelledby="pl-faq-title">
+    <div class="container narrow faq-mini">
+      <h2 id="pl-faq-title" class="faq-title">Preguntas sobre Wazuh</h2>
+      <details><summary>¿Wazuh es un SOC?</summary><p>No. Wazuh es la plataforma. PINESTIC la implementa en tu infraestructura y tu equipo la opera; no ofrecemos vigilancia 24/7 ni respuesta a incidentes.</p></details>
+      <details><summary>¿Reemplaza el antivirus?</summary><p>No, lo complementa. El antivirus protege cada equipo; Wazuh centraliza y analiza los eventos de todos para que veas lo que está pasando.</p></details>
+      <details><summary>¿Wazuh tiene costo de licencia?</summary><p>No por el software, porque es de código abierto. Sí tienen costo la implementación, los servidores donde funciona y el soporte, y todo queda claro en la propuesta.</p></details>
+      <details><summary>¿Qué equipos se pueden integrar?</summary><p>Servidores y equipos Windows, Linux y macOS con su agente, además de registros de firewall y otros dispositivos de red.</p></details>
+    </div>
+    <div class="container">
+      <div class="contact-panel">
+        <div>
+          <p class="pill">Empieza por un diagnóstico</p>
+          <h2>¿Wazuh es para tu empresa?</h2>
+          <p>Cuéntanos qué tienes hoy y te respondemos con una evaluación inicial y el siguiente paso, sin compromiso.</p>
+        </div>
+        <div class="contact-channels">
+          <a class="button primary" href="mailto:info@pinestic.com?subject=Consulta%20sobre%20Wazuh%20-%20PINESTIC">Hablemos de Wazuh</a>
+          <a class="button outline" href="https://wa.me/573017117721?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Wazuh" target="_blank" rel="noopener noreferrer"><svg class="btn-icon" aria-hidden="true" focusable="false"><use href="#i-wa"/></svg>WhatsApp</a>
+          <p class="contact-note">No envíes credenciales ni datos confidenciales en el primer contacto.</p>
+        </div>
+      </div>
+      <nav class="sol-others" aria-label="Otras plataformas">
+        <p>También te puede interesar</p>
+        <a class="text-link" href="/plataformas/zabbix/">Conoce Zabbix</a>
+        <a class="text-link" href="/soluciones/ciberseguridad/">Soluciones de Ciberseguridad</a>
+      </nav>
+    </div>
+  </section>
+  <dialog class="pl-lightbox" data-lightbox-dialog aria-label="Imagen ampliada">
+    <img src="" alt="" data-lightbox-img>
+    <button type="button" class="pl-lightbox-close" data-lightbox-close aria-label="Cerrar">×</button>
+  </dialog>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="/">PINESTIC<span class="brand-dot">.</span></a>
+      <p>Tecnología que impulsa tu empresa.</p>
+      <nav class="social-links" aria-label="Redes sociales de PINESTIC">
+        <a href="https://www.instagram.com/pines.tic/" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en Instagram"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-ig"/></svg></a>
+        <a href="https://www.tiktok.com/@pines.tic" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en TikTok"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-tt"/></svg></a>
+        <a href="https://www.facebook.com/profile.php?id=61591644321482" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en Facebook"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-fb"/></svg></a>
+        <a href="https://www.youtube.com/channel/UCGhiNkfMXRxOqzxNWAKLv7A" target="_blank" rel="noopener noreferrer" aria-label="PINESTIC en YouTube"><svg class="social-icon" aria-hidden="true" focusable="false"><use href="#i-yt"/></svg></a>
+      </nav>
+    </div>
+    <div>
+      <h2 class="footer-h">Contáctanos</h2>
+      <ul class="footer-list">
+        <li><a href="mailto:info@pinestic.com">info@pinestic.com</a></li>
+        <li><a href="tel:+573017117721">+57 301 711 7721</a></li>
+        <li>Atención remota en Colombia</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="footer-h">Enlaces</h2>
+      <ul class="footer-list">
+        <li><a href="/#servicios">Soluciones</a></li>
+        <li><a href="/#metodologia">Cómo trabajamos</a></li>
+        <li><a href="/#nosotros">Nosotros</a></li>
+        <li><a href="/blog/">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-base"><small>© <span data-year>2026</span> PINESTIC. Todos los derechos reservados.</small><small>Las marcas de tecnologías mencionadas pertenecen a sus fabricantes; su mención no implica alianza ni certificación.</small></div>
+</footer>
+<a class="wa-float" href="https://wa.me/573017117721?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20PINESTIC" target="_blank" rel="noopener noreferrer" aria-label="Escribir a PINESTIC por WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+
+</body>
+</html>

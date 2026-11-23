@@ -71,7 +71,18 @@
       <span class="nav-toggle-bars" aria-hidden="true"></span><span class="sr-only">Abrir menú</span>
     </button>
     <nav class="main-nav" id="menu" aria-label="Navegación principal" data-nav>
-      <a href="/#servicios">Soluciones</a>
+      <div class="nav-group" data-subnav>
+        <button class="nav-sub-toggle" type="button" aria-expanded="false" aria-controls="sub-soluciones">Soluciones</button>
+        <ul class="nav-sub" id="sub-soluciones">
+          <li><a href="/soluciones/infraestructura/"><strong>Infraestructura TI</strong><span>Monitoreo, virtualización y servidores</span></a></li>
+          <li><a href="/soluciones/ciberseguridad/"><strong>Ciberseguridad</strong><span>SIEM, hardening y evaluaciones</span></a></li>
+          <li><a href="/soluciones/redes-y-continuidad/"><strong>Redes y continuidad</strong><span>Firewall y backups</span></a></li>
+          <li class="nav-sub-label" aria-hidden="true">Plataformas</li>
+          <li><a href="/plataformas/zabbix/"><strong>Conoce Zabbix</strong><span>Monitoreo de infraestructura</span></a></li>
+          <li><a href="/plataformas/wazuh/"><strong>Conoce Wazuh</strong><span>SIEM y seguridad de servidores</span></a></li>
+          <li class="nav-sub-all"><a href="/#servicios">Ver todas las soluciones</a></li>
+        </ul>
+      </div>
       <a href="/#metodologia">Cómo trabajamos</a>
       <a href="/#nosotros">Nosotros</a>
       <a href="/blog/">Blog</a>
@@ -83,7 +94,6 @@
 <main id="contenido">
   <section class="page-hero article-hero" aria-labelledby="post-title">
     <div class="container">
-      <p class="breadcrumb"><a href="/">Inicio</a> / <a href="/blog/">Blog</a></p>
       <p class="post-meta"><span class="tag">Guía</span><time datetime="AAAA-MM-DD">DÍA de MES de AÑO</time></p>
       <h1 id="post-title">TÍTULO DEL ARTÍCULO</h1>
     </div>
