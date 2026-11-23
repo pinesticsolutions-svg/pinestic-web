@@ -2,8 +2,8 @@ LOGOS DE TECNOLOGÍAS
 ====================
 Los logos están en blanco con fondo transparente (PNG de 80 px de alto), listos para fondo oscuro.
 
-Activos (21): proxmox, vmware, hyper-v, nutanix, windows-server, ubuntu, wazuh, zabbix, grafana, glpi, n8n, fortinet,
-palo-alto, pfsense, mikrotik, cisco, ubiquiti, veeam, commvault, kaspersky, eset.
+Activos en el sitio (6): zabbix, proxmox, wazuh, pfsense, windows-server, ubuntu.
+Los demás archivos se conservan en la carpeta, pero no se muestran porque no forman parte del portafolio actual.
 
 Para agregar uno nuevo:
 1. Guarda el PNG en esta carpeta, en blanco sobre fondo transparente (por ejemplo zabbix.png).
